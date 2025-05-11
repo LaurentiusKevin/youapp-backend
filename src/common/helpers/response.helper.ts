@@ -4,3 +4,9 @@ export function successResponse(message: string, data: unknown = {}) {
     data,
   };
 }
+
+export function errorResponse(message: string) {
+  return {
+    message,
+  };
+}

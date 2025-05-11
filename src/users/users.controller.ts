@@ -33,8 +33,11 @@ export class UsersController {
 
     return successResponse('Profile has been found', {
       username: profile.username,
-      name: profile.name,
       email: profile.email,
+      name: profile.name,
+      birthday: profile.birthday,
+      height: profile.height,
+      weight: profile.weight,
       interests: profile.interests,
     });
   }

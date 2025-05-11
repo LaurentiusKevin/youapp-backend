@@ -1,9 +1,4 @@
-import {
-  Body,
-  Controller,
-  InternalServerErrorException,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { successResponse } from '../common/helpers/response.helper';
@@ -22,9 +17,13 @@ export class AuthController {
   })
   @Post('register')
   async register(@Body() registerDto: RegisterDto) {
-    await this.authService.register(registerDto);
+    try {
+      await this.authService.register(registerDto);
 
-    return successResponse('User has been created successfully');
+      return successResponse('User has been created successfully');
+    } catch (error) {
+      throw error as Error;
+    }
   }
 
   @ApiBody({ type: LoginDto })
@@ -47,7 +46,7 @@ export class AuthController {
         access_token: token,
       };
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      throw error as Error;
     }
   }
 }

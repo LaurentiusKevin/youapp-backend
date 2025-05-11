@@ -1,11 +1,7 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  NotAcceptableException,
-} from '@nestjs/common';
+import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from './schemas/user.schema';
-import { Error, Model } from 'mongoose';
+import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
 import { CreateProfileDto } from './dto/createProfile.dto';
 
@@ -17,18 +13,13 @@ export class UsersService {
   ) {}
 
   async profile(username: string): Promise<User> {
-    try {
-      const user = await this.userModel.findOne({
-        username: username,
-      });
+    const user = await this.userModel.findOne({
+      username: username,
+    });
 
-      if (!user) throw new InternalServerErrorException('User not found');
+    if (!user) throw new NotAcceptableException('User not found');
 
-      return user;
-    } catch (error: unknown) {
-      const err = error as Error;
-      throw new InternalServerErrorException(err.message);
-    }
+    return user;
   }
 
   async createProfile(username: string, profile: CreateProfileDto) {
@@ -36,7 +27,7 @@ export class UsersService {
       username: username,
     });
 
-    if (!user) throw new InternalServerErrorException('User not found');
+    if (!user) throw new NotAcceptableException('User not found');
 
     const profileKey = ['name', 'birthday', 'height', 'weight', 'interests'];
     if (profileKey.every((key) => user[key])) {
@@ -59,7 +50,7 @@ export class UsersService {
       username: username,
     });
 
-    if (!user) throw new InternalServerErrorException('User not found');
+    if (!user) throw new NotAcceptableException('User not found');
 
     user.name = profile.name;
     user.birthday = profile.birthday;

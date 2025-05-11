@@ -77,16 +77,20 @@ export class MessagesService {
     if (!user) throw new NotFoundException(`User ${username} not found.`);
 
     const latestUserChat = await this.messageModel
-      .findOne({
-        or: [
+      .find({
+        $or: [
           { 'sender.username': user.username },
           { 'receiver.username': user.username },
         ],
       })
-      .sort({ createdAt: 'asc' });
+      .sort({ createdAt: 'asc' })
+      .limit(1)
+      .then((results) => results[0]);
 
     if (!latestUserChat) return null;
 
-    return this.getMessageByChatId(latestUserChat.chatId);
+    const message = await this.getMessageByChatId(latestUserChat.chatId);
+
+    return message;
   }
 }
