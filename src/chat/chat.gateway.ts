@@ -84,7 +84,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       const extractedToken = this.jwtService.verify<User>(token, {
         secret: jwtConstants.secret,
       });
-      const sender: User | null = await this.userModel.findOne({
+      const sender: UserDocument | null = await this.userModel.findOne({
         username: extractedToken.username,
       });
       if (!sender) {
@@ -135,7 +135,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       }
 
       const messages = await this.messagesService.getMessageByChatId(
-        message.chatId!,
+        message.chatId,
       );
 
       client.emit('message_data', messages);

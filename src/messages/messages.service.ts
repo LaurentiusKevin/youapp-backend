@@ -34,7 +34,7 @@ export class MessagesService {
     }
   }
 
-  async sendMessage(user: User, sendMessageDto: SendMessageDto) {
+  async sendMessage(user: UserDocument, sendMessageDto: SendMessageDto) {
     const receiver = await this.userModel.findOne({
       username: sendMessageDto.receiverUsername,
     });
