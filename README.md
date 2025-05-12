@@ -1,3 +1,5 @@
+![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
+
 ## Description
 
 This is a [Nest](https://github.com/nestjs/nest) project with MongoDB integration and Swagger documentation for YouApp Coding Assessment.
