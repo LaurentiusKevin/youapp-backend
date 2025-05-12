@@ -33,7 +33,7 @@ jest.mock('bcrypt', () => ({
   compare: jest.fn(),
 }));
 
-const mockUser: User = {
+const mockUser = {
   _id: 'this is user id' as unknown as Types.ObjectId,
   username: 'laurentius',
   password: 'hashed password',
@@ -53,7 +53,6 @@ const registerDto = {
 
 describe('AuthController', () => {
   let controller: AuthController;
-  let service: AuthService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -64,7 +63,6 @@ describe('AuthController', () => {
         { provide: JwtService, useValue: mockJwtService },
       ],
     }).compile();
-    service = module.get<AuthService>(AuthService);
     controller = module.get<AuthController>(AuthController);
   });
 

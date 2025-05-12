@@ -1,6 +1,5 @@
 import { MessagesController } from './messages.controller';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersService } from '../users/users.service';
 import { getModelToken } from '@nestjs/mongoose';
 import { User } from '../users/schemas/user.schema';
 import { JwtService } from '@nestjs/jwt';
@@ -8,7 +7,7 @@ import { Types } from 'mongoose';
 import { Message } from './schemas/message.schema';
 import { Request } from 'express';
 import { MessagesService } from './messages.service';
-import { NotAcceptableException, NotFoundException } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 
 const mockUser = {
   _id: 'this is user id' as unknown as Types.ObjectId,
